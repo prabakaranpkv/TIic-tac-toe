@@ -24,6 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
   ];
 
   function handleResultValidation() {
+    console.log("handle calling result validation");
     let roundWon = false;
     for (let i = 0; i <= 7; i++) {
       const winCondition = winningConditions[i];
@@ -86,8 +87,10 @@ window.addEventListener("DOMContentLoaded", () => {
       tile.innerText = currentPlayer;
       tile.classList.add(`player${currentPlayer}`);
       updateBoard(index);
-      handleResultValidation();
       changePlayer();
+      if (index > 4) {
+        handleResultValidation();
+      }
     }
   };
 
