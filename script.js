@@ -3,6 +3,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const playerDisplay = document.querySelector(".display-player");
   const resetButton = document.querySelector("#reset");
   const announcer = document.querySelector(".announcer");
+  const disp = document.querySelector(".display");
 
   let board = ["", "", "", "", "", "", "", "", ""];
   let currentPlayer = "X";
@@ -24,7 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
   ];
 
   function handleResultValidation() {
-    console.log("handle calling result validation");
+    // console.log("handle calling result validation");
     let roundWon = false;
     for (let i = 0; i <= 7; i++) {
       const winCondition = winningConditions[i];
@@ -41,8 +42,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     if (roundWon) {
-      announce(currentPlayer === "X" ? PLAYERX_WON : PLAYERO_WON);
+      announce(currentPlayer === "O" ? PLAYERX_WON : PLAYERO_WON);
       isGameActive = false;
+
       return;
     }
 
@@ -61,6 +63,9 @@ window.addEventListener("DOMContentLoaded", () => {
         announcer.innerText = "DRAW";
     }
     announcer.classList.remove("hide");
+    if (type) {
+      disp.classList.add("hide");
+    }
   };
 
   const isValidAction = (tile) => {
@@ -85,12 +90,15 @@ window.addEventListener("DOMContentLoaded", () => {
   const userAction = (tile, index) => {
     if (isValidAction(tile) && isGameActive) {
       tile.innerText = currentPlayer;
+
       tile.classList.add(`player${currentPlayer}`);
       updateBoard(index);
+
       changePlayer();
-      if (index > 4) {
-        handleResultValidation();
-      }
+      // if (index > 4) {
+      //
+      // }
+      handleResultValidation();
     }
   };
 
